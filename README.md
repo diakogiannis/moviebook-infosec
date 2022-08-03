@@ -1,4 +1,4 @@
-# Social Media Platform as a Microservice PoC
+# Social Media Platform PoC
 
 Demo project for UEL security post graduate paper, yet​ ​another
 social​ ​sharing​ ​platform​ ​where​ ​users​ ​can​ ​share​ ​their​ ​favorite​ ​movies.
