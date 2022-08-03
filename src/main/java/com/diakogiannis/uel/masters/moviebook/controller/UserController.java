@@ -9,6 +9,8 @@ import com.diakogiannis.uel.masters.moviebook.model.misc.ModalInfo;
 import com.diakogiannis.uel.masters.moviebook.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -39,6 +41,14 @@ public class UserController {
         return principal;
     }
 
+    /**
+     * Sanitized username to cope with Thymneleaf vulnerability CWE-79  CVSS 6.5
+     * @param model
+     * @param usersDTO
+     * @param result
+     * @return
+     *
+     */
     @PostMapping(path = "/register")
     public String registerUser(Model model, @Valid UsersDTO usersDTO, BindingResult result) {
         if (result.hasErrors()) {
@@ -46,6 +56,8 @@ public class UserController {
         }
         try {
             Users user = usersMapper.toUsers(usersDTO);
+            //Sanitized username to cope with Thymneleaf vulnerability CWE-79  CVSS 6.5
+            user.setUsername(Jsoup.clean(user.getUsername().toString(), Safelist.basic()));
             userService.registerUser(user);
             model.addAttribute("created", true);
         } catch (UserExistsException e) {
