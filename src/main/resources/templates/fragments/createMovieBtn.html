@@ -1,0 +1,6 @@
+<div th:fragment="createMovieBtn" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     xmlns:th="http://www.thymeleaf.org">
+    <div sec:authorize="isAuthenticated()">
+        <a class="btn btn-success" role="button" th:href="@{/movies/create}">New Movie</a>
+    </div>
+</div>

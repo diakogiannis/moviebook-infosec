@@ -1,0 +1,77 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en"
+>
+
+<head th:replace="fragments/header :: header">
+    <title>moviebook by Alexius</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 spacer-bellow">
+            <div align="right">
+                <img th:src="@{/static-resources/images/logo.png}" width="200" align="right">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-left">
+
+            <h3>moviebook</h3>
+
+        </div>
+
+        <div th:replace="fragments/login :: login"></div>
+
+    </div>
+
+    <div class="alert alert-secondary">Sort by:
+        <a href="?sortBy=1"  th:class="${param.sortBy!=null && param.sortBy[0]=='1'} ? 'btn btn-success'">Likes</a> |
+        <a href="?sortBy=2"  th:class="${param.sortBy!=null && param.sortBy[0]=='2'} ? 'btn btn-success'">Hates</a> |
+        <a href="?sortBy=3"  th:class="${param.sortBy!=null && param.sortBy[0]=='3'} ? 'btn btn-success'">Date</a>
+        <span th:if="${param.sortBy != null}">&nbsp;-&nbsp;<a th:href="@{/movies/list}" class="btn btn-warning" >clear filters</a></span></div>
+
+    <div class="alert alert-primary" th:if="${movies == null || movies.empty}">
+       No Movies Available
+    </div>
+
+    <div class="alert alert-warning" th:if="${isPublicIdentifier != null && isPublicIdentifier}">
+        You have selected to filter movies from a specific user. <a th:href="@{/movies/list}">
+        Click here to remove it</a>
+    </div>
+
+
+    <div class="row">
+        <div class="col-8">
+            <div class="card-fe-wrapper" th:each="movie : ${movies}" th:if="${movies != null && !movies.empty}">
+                <div class="card">
+
+                    <div th:insert="fragments/postedby :: postedby"></div>
+
+                    <div class="card-body">
+                        <span th:text="${movie.description}"></span>
+                    </div>
+                    <div class="card-footer">
+                        <span th:replace="fragments/rating::rating"></span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-4">
+            <span th:replace="fragments/createMovieBtn::createMovieBtn"></span>
+        </div>
+    </div>
+
+
+</div>
+
+<span th:insert="${modalInfo != null} ? ~{fragments/modal::modal} : _"></span>
+
+<span th:insert="fragments/footer::footer"></span>
+</body>
+</html>

@@ -1,0 +1,24 @@
+ <div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="postedby"  class="card-header"><span th:text="${movie.title}"></span>
+    <div sec:authorize="!isAuthenticated()">
+
+            <span class="text-muted">posted by <a
+                    th:href="@{/movies/list/{user}(user=${movie.user.publicIdentifier})}"
+                    th:text="${movie.user.firstname+' '+movie.user.lastname}"></a></span>
+            <u>
+                            <span th:text="${@dateUtils.calculateDaysBetween(movie.publicationDate)+' days ago'} "
+                                  data-toggle="tooltip" data-placement="top"
+                                  th:title="${#temporals.format(movie.publicationDate, 'dd/MMM/yyyy HH:mm')}"></span></u>
+        </div>
+
+    <div sec:authorize="isAuthenticated()">
+            <span class="text-muted">posted by <a
+                    th:href="@{/movies/list/{user}(user=${movie.user.publicIdentifier})}"
+                    th:text="${#authentication.name == movie.user.username ? 'You' : movie.user.firstname+' '+movie.user.lastname}"></a></span>
+            <u>
+                            <span th:text="${@dateUtils.calculateDaysBetween(movie.publicationDate)+' days ago'} "
+                                  data-toggle="tooltip" data-placement="top"
+                                  th:title="${#temporals.format(movie.publicationDate, 'dd/MMM/yyyy HH:mm')}"></span></u>
+    </div>
+
+</div>

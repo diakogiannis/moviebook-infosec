@@ -1,0 +1,37 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en"
+>
+<head>
+    <title>We've got some trouble</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="container">
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1><span class="glyphicon glyphicon-fire red"></span> moviebook</h1>
+        <p class="lead">404-Our apologies.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="body-content">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>What happened?</h2>
+                <p class="lead">This page stepped out for a quick ride... </p>
+                <p>Please go back to our homepage to restart your browsing experience. <a th:href="@{/}" class="btn btn-info">Home</a> </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+

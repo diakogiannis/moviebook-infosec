@@ -1,0 +1,30 @@
+[{
+  "isLike": true,
+    "movie": {
+      "movieId": 5
+    },
+  "user": {
+    "userId": "1"
+  }
+    
+  },
+  {
+    "user": {
+      "userId": "1"
+    },
+    "isLike": false,
+    "movie": {
+      "movieId": 6
+    }
+  },
+  {
+    "user": {
+      "userId": "2"
+    },
+    "isLike": true,
+    "movie": {
+      "movieId": 4
+    }
+  }
+
+]

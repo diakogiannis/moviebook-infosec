@@ -1,0 +1,11 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="login"  class="col text-right" >
+    <div sec:authorize="!isAuthenticated()">
+        <a th:href="@{/login}" class="btn btn-info" role="button">Log in</a> or <a th:href="@{/user/register}"
+                                                                                   class="btn btn-warning"
+                                                                                   role="button">Sign Up</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        Welcome back:  - <span th:text="${session.userDetailsDTO.firstname+' '+session.userDetailsDTO.lastname}" th:unless="${session.userDetailsDTO == null}"></span> <a th:href="@{/logout}" class="btn btn-danger" role="button">Log out</a>
+    </div>
+
+</div>

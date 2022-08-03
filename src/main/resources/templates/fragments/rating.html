@@ -1,0 +1,83 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     th:fragment="rating" class="col text-right">
+    <div sec:authorize="!isAuthenticated()">
+
+        <div align="left"
+             th:if="${ (movie.likes != 0 && movie.likes !=null) || (movie.hates!=0 && movie.hates !=null)}">
+            <span th:text="${movie.likes}?: '0'"></span> likes | <span th:text="${movie.hates}?: '0'"></span> hates
+        </div>
+
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+
+
+        <div class="d-flex"
+             th:unless="${#authentication.name != movie.user.username}">
+            <!-- module when you are the movie owner -->
+            <div class="p-2 flex-grow-1" align="left">
+                <span th:if="${(movie.likes > 0)
+                        || (movie.hates > 0 )}" >
+                    <span th:text="${movie.likes}?: '0'"></span> likes | <span th:text="${movie.hates}?: '0'"></span> hates
+                </span>
+            </div>
+            <div class="p-2 ">
+                &nbsp;
+            </div>
+        </div>
+
+        <div class="d-flex"
+             th:unless="${#authentication.name == movie.user.username}">
+            <!-- module when you are not the movie owner -->
+            <div class="p-2 flex-grow-1" align="left">
+                <span th:if="${(movie.likes == 0 || movie.likes ==null)
+                        && (movie.hates==0 || movie.hates ==null)}"
+                >
+                    Be the first one to vote for this movie
+                    <a th:href="@{/movies/rate/like/{movieid}(movieid=${movie.movieId})}">like</a> |
+                    <a th:href="@{/movies/rate/hate/{movieid}(movieid=${movie.movieId})}">hate</a>
+                </span>
+                <span th:if="${(movie.likes > 0)
+                        || (movie.hates>0 )}">
+                        <span th:if="${#maps.containsKey(userMovieRatings, movie.movieId)}">
+                            <span th:if="${!userMovieRatings.get(movie.movieId).isLike}">
+
+                                <a
+                                        th:href="@{/movies/rate/like/{movieid}(movieid=${movie.movieId})}"
+                                        th:text="${movie.likes+' likes'}?: '0 likes'"></a>
+                            |
+
+
+                                <span th:text="${movie.hates+' hates'}?: '0 hates'"></span>
+
+                            </span>
+                            <span th:if="${userMovieRatings.get(movie.movieId).isLike}">
+
+                                <span th:text="${movie.likes+' likes'}?: '0 likes'"></span>
+                                | <a
+                                    th:href="@{/movies/rate/hate/{movieid}(movieid=${movie.movieId})}"
+                                    th:text="${movie.hates+' hates'}?: '0 hates'"></a></span>
+                        </span>
+                    <span th:if="${!#maps.containsKey(userMovieRatings, movie.movieId)}">
+                        <a
+                                th:href="@{/movies/rate/like/{movieid}(movieid=${movie.movieId})}"
+                                th:text="${movie.likes+' likes'}?: '0 likes'"></a> |
+                        <a th:href="@{/movies/rate/hate/{movieid}(movieid=${movie.movieId})}"
+                           th:text="${movie.hates+' hates'}?: '0 hates'"></a>
+                    </span>
+
+                </span>
+            </div>
+            <div class="p-2 ">
+                <span th:if="${#maps.containsKey(userMovieRatings, movie.movieId)}">
+                    <span th:if="${userMovieRatings.get(movie.movieId).isLike}">You Like this movie | <a
+                            th:href="@{/movies/rate/undo/{movieid}(movieid=${movie.movieId})}">UnLike</a></span>
+                    <span th:if="${!userMovieRatings.get(movie.movieId).isLike}">You Hate this movie | <a
+                            th:href="@{/movies/rate/undo/{movieid}(movieid=${movie.movieId})}">UnHate</a></span>
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+</div>

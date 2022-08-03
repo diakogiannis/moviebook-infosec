@@ -1,0 +1,81 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en"
+>
+
+<head th:replace="fragments/header :: header">
+    <title>moviebook by Alexius</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col text-left">
+
+            <h3>moviebook</h3>
+
+        </div>
+
+        <div th:replace="fragments/login :: login"></div>
+
+    </div>
+
+    <article class="card-body mx-auto" style="max-width: 400px;" th:if="${created!=null}">
+        <center>
+            Movie Created!<br/>
+            Please Wait...
+            <script>redirectWithDelay(2000, '[[@{/}]]');</script>
+        </center>
+    </article>
+
+    <form action="#" class="form-horizontal " method="post" th:action="@{/movies/create}" th:if="${created==null}"
+          th:object="${movie}">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Create a Movie</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="title">Movie Title</label>
+                <div class="col-md-4">
+                    <input class="form-control input-md" id="title" name="title" placeholder="" required
+                           th:field="*{title}" type="text">
+                    <div th:if="${#fields.hasErrors('title')}">
+                        <small class="text-danger" id="titleHelp" th:errors="*{title}"></small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="description">Movie Description</label>
+                <div class="col-md-4">
+                    <textarea class="form-control" id="description" name="description" required
+                              th:field="*{description}"></textarea>
+                    <small class="text-danger" id="descriptionHelp" th:errors="*{description}"></small>
+                </div>
+            </div>
+
+            <!-- Button (Double) -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="savemovie">Save or Flee</label>
+                <div class="col-md-8">
+                    <button type="submit" id="savemovie" name="savemovie" class="btn btn-success">Save Movie</button>
+                    OR
+                    <a class="btn btn-warning" th:href="@{/}">Return Home</a>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+
+</div>
+
+<span th:insert="${modalInfo != null} ? ~{fragments/modal::modal} : _"></span>
+
+<span th:insert="fragments/footer::footer"></span>
+</body>
+</html>

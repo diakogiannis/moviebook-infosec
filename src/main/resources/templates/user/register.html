@@ -1,0 +1,80 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml" lang="en"
+>
+
+<head th:replace="fragments/header :: header">
+    <title>moviebook by Alexius</title>
+</head>
+<body>
+
+<div class="container">
+
+        <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;" th:if="${created!=null}">
+                <center>
+                    User Created!<br/>
+                    Please Wait...
+                    <script>redirectWithDelay(2000, '[[@{/}]]');</script>
+                </center>
+            </article>
+            <article class="card-body mx-auto" style="max-width: 400px;" th:if="${created==null}">
+                <h4 class="card-title mt-3 text-center">Create Account</h4>
+                <p class="text-center">Get started with your free account</p>
+                <div class="form-group input-group">
+                    <form action="#" th:action="@{/user/register}" th:object="${usersDTO}" method="post"
+                          data-toggle="validator">
+                       <p>
+                            <label for="username">Username</label>
+                            <input type="text" th:field="*{username}" id="username" placeholder="username" required>
+                            <div th:if="${#fields.hasErrors('username')}">
+                                <small id="usernameHelp" class="text-danger" th:errors="*{username}">
+
+                                </small>
+                            </div>
+                        </p>
+                        <p>
+                            <label for="firstname">Firstname</label>
+                            <input type="text" th:field="*{firstname}" id="firstname" placeholder="firstname" required>
+                        <div th:if="${#fields.hasErrors('firstname')}">
+                            <small id="firstnameHelp" class="text-danger" th:errors="*{firstname}">
+
+                            </small>
+                        </div>
+                        </p>
+                        <p>
+                            <label for="lastname">Lastname</label>
+                            <input type="text" th:field="*{lastname}" id="lastname" placeholder="lastname" required>
+                        <div th:if="${#fields.hasErrors('lastname')}">
+                            <small id="lastnameHelp" class="text-danger" th:errors="*{lastname}">
+
+                            </small>
+                        </div>
+                        </p>
+                        <p>
+                            <label for="password">Password</label>
+                            <input type="password" th:field="*{password}" id="password" placeholder="password" required>
+                            <span></span>
+                            <div th:if="${#fields.hasErrors('password')}">
+                                <small id="passwordHelp" class="text-danger" th:errors="*{password}">
+
+                                </small>
+                            </div>
+                        </p>
+                        <input type="submit" value="Register" class="btn btn-info"> OR <a th:href="@{/}"
+                                                                                          class="btn btn-warning">Return
+                        Home</a>
+                    </form>
+                </div>
+            </article>
+        </div>
+    </div>
+
+
+<span th:insert="${modalInfo != null} ? ~{fragments/modal::modal} : _"></span>
+
+<span th:insert="fragments/footer::footer">
+</span>
+</body>
+</html>
