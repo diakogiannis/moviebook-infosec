@@ -3,7 +3,7 @@
 Demo project for UEL security post graduate paper, yet​ ​another
 social​ ​sharing​ ​platform​ ​where​ ​users​ ​can​ ​share​ ​their​ ​favorite​ ​movies.
 
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=diakogiannis_moviebook)](https://sonarcloud.io/dashboard?id=diakogiannis_moviebook)
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=diakogiannis_moviebook-infosec)](https://sonarcloud.io/dashboard?id=diakogiannis_moviebook)
 
 
 ## Introduction
