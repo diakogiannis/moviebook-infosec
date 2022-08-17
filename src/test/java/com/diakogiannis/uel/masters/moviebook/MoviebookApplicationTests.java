@@ -4,6 +4,8 @@ import com.diakogiannis.uel.masters.moviebook.model.entity.movies.Movie;
 import com.diakogiannis.uel.masters.moviebook.model.entity.users.Users;
 import com.diakogiannis.uel.masters.moviebook.service.MovieService;
 import com.diakogiannis.uel.masters.moviebook.service.UserService;
+import com.diakogiannis.uel.masters.moviebook.util.PasswordUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +16,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.Set;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -36,6 +40,9 @@ public class MoviebookApplicationTests {
     private MockMvc mockMvc;
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordUtils passwordUtils;
 
     @Before
     public void init() {
@@ -71,5 +78,11 @@ public class MoviebookApplicationTests {
         mockMvc.perform(get("/something-possibly-secured").with(httpBasic(users.getUsername(), users.getPassword())));
     }
 
+    //Test passwords are loaded
+    @Test
+    public void loadPasswords(){
+        Set<String> passwords = passwordUtils.getPasswords();
+        Assert.assertTrue(passwords.size() > 1);
+    }
 
 }

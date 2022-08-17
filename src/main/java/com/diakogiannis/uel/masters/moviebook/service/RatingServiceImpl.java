@@ -5,10 +5,10 @@ import com.diakogiannis.uel.masters.moviebook.exceptions.MovieDoesNotExistExcept
 import com.diakogiannis.uel.masters.moviebook.exceptions.MovieSelfVoteException;
 import com.diakogiannis.uel.masters.moviebook.exceptions.RatingDoesNotExistException;
 import com.diakogiannis.uel.masters.moviebook.exceptions.VoteAlreadyExistsException;
-import com.diakogiannis.uel.masters.moviebook.repository.MovieRepository;
-import com.diakogiannis.uel.masters.moviebook.repository.RatingRepository;
 import com.diakogiannis.uel.masters.moviebook.model.entity.movies.Movie;
 import com.diakogiannis.uel.masters.moviebook.model.entity.movies.Rating;
+import com.diakogiannis.uel.masters.moviebook.repository.MovieRepository;
+import com.diakogiannis.uel.masters.moviebook.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;

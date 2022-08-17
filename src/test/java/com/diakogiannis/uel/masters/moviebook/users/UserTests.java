@@ -1,8 +1,8 @@
 package com.diakogiannis.uel.masters.moviebook.users;
 
 import com.diakogiannis.uel.masters.moviebook.exceptions.UserExistsException;
-import com.diakogiannis.uel.masters.moviebook.service.UserService;
 import com.diakogiannis.uel.masters.moviebook.model.entity.users.Users;
+import com.diakogiannis.uel.masters.moviebook.service.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -2,15 +2,37 @@ package com.diakogiannis.uel.masters.moviebook.model.mappers;
 
 import com.diakogiannis.uel.masters.moviebook.model.dto.UsersDTO;
 import com.diakogiannis.uel.masters.moviebook.model.entity.users.Users;
-import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Mapper(componentModel = "spring")
-public interface UsersMapper {
-    UsersDTO toUsersDTO(Users users);
+@Component
+public class UsersMapper {
+    public UsersDTO toUsersDTO(Users users){
+        if(users == null){
+            return null;
+        }
+        return new UsersDTO(users.getUsername(), users.getPassword(), users.getFirstname(), users.getLastname());
+    }
 
-    List<UsersDTO> toUsersDTOs(List<Users> users);
+    public List<UsersDTO> toUsersDTOs(List<Users> users){
+        List<UsersDTO> usersDTOS = new ArrayList<>();
+        for (Users u : users) {
+            usersDTOS.add(toUsersDTO(u));
+        }
+        return usersDTOS;
+    }
 
-    Users toUsers(UsersDTO usersDTO);
+    public Users toUsers(UsersDTO usersDTO){
+        if (usersDTO == null){
+            return null;
+        }
+        Users users = new Users();
+        users.setUsername(usersDTO.getUsername());
+        users.setPassword(usersDTO.getPassword());
+        users.setFirstname(usersDTO.getFirstname());
+        users.setLastname(usersDTO.getLastname());
+        return users;
+    }
 }

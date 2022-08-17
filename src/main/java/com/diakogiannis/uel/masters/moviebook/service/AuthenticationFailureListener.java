@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
-import org.springframework.security.web.header.Header;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +14,17 @@ public class AuthenticationFailureListener implements ApplicationListener<Authen
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    BlockedUserService blockedUserService;
+
     @Override
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent event) {
+        blockedUserService.markFailure(event.getAuthentication().getName());
         final String xfHeader = request.getHeader("X-Forwarded-For");
         if (xfHeader == null){
-            log.error("Failled login attemot for {} from {}", request.getRemoteUser(), request.getRemoteAddr());
+            log.error("Failed login attempt for {} from {}", event.getAuthentication().getName(), request.getRemoteAddr());
         } else {
-            log.error("Failled login attemot for {} from {}", request.getRemoteUser(), xfHeader.split(",")[0]);
+            log.error("Failed login attempt for {} from {}", event.getAuthentication().getName(), xfHeader.split(",")[0]);
         }
     }
 

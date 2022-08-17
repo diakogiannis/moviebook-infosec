@@ -7,6 +7,7 @@ import com.diakogiannis.uel.masters.moviebook.model.entity.users.Users;
 import com.diakogiannis.uel.masters.moviebook.model.mappers.UsersMapper;
 import com.diakogiannis.uel.masters.moviebook.model.misc.ModalInfo;
 import com.diakogiannis.uel.masters.moviebook.service.UserService;
+import com.diakogiannis.uel.masters.moviebook.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -30,11 +31,15 @@ import java.security.Principal;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UsersMapper usersMapper;
+    @Autowired
+    UsersMapper usersMapper;
     @Autowired
     UserService userService;
     @Autowired
     HttpSession session;
+
+    @Autowired
+    PasswordUtils passwordUtils;
 
     @GetMapping(path = "/principal")
     public Principal retrievePrincipal(Principal principal) {
@@ -56,10 +61,15 @@ public class UserController {
         }
         try {
             Users user = usersMapper.toUsers(usersDTO);
-            //Sanitized username to cope with Thymneleaf vulnerability CWE-79  CVSS 6.5
-            user.setUsername(Jsoup.clean(user.getUsername().toString(), Safelist.basic()));
-            userService.registerUser(user);
-            model.addAttribute("created", true);
+            //check is password exists in common password list
+            if(passwordUtils.getPasswords().contains(user.getPassword())){
+                model.addAttribute("modalInfo", new ModalInfo("Error!", "Password exists in list of common passwords!"));
+            } else {
+                //Sanitized username to cope with Thymneleaf vulnerability CWE-79  CVSS 6.5
+                user.setUsername(Jsoup.clean(user.getUsername().toString(), Safelist.basic()));
+                userService.registerUser(user);
+                model.addAttribute("created", true);
+            }
         } catch (UserExistsException e) {
             model.addAttribute("modalInfo", new ModalInfo("Error!", "User Already Exists!"));
         }

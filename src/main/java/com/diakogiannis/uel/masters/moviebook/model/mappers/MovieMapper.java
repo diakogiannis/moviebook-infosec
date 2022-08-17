@@ -2,14 +2,72 @@ package com.diakogiannis.uel.masters.moviebook.model.mappers;
 
 import com.diakogiannis.uel.masters.moviebook.model.dto.MovieDTO;
 import com.diakogiannis.uel.masters.moviebook.model.entity.movies.Movie;
-import org.mapstruct.Mapper;
+import com.diakogiannis.uel.masters.moviebook.model.entity.users.Users;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
-public interface MovieMapper {
+import java.util.ArrayList;
+import java.util.List;
 
-    MovieDTO toMovieDTO(Movie movie);
+@Component
+public class MovieMapper {
 
-    Iterable<MovieDTO> toMovieDTOs(Iterable<Movie> movie);
+    /**
+     *
+     * @param movie
+     * @return
+     */
+    public MovieDTO toMovieDTO(Movie movie) {
+        if (movie == null) {
+            return null;
+        }
+        String username = null;
+        String firstname = null;
+        String lastname = null;
+        if(movie.getUser() != null){
+            username = movie.getUser().getUsername();
+            firstname = movie.getUser().getFirstname();
+            lastname = movie.getUser().getLastname();
+        }
+        return new MovieDTO(movie.getTitle(), movie.getDescription(), username, movie.getLikes(), movie.getHates(), movie.getPublicationDate(), firstname, lastname);
+    }
 
-    Movie toMovie(MovieDTO movieDTO);
+    /**
+     *
+     * @param movie
+     * @return
+     */
+    public Iterable<MovieDTO> toMovieDTOs(Iterable<Movie> movie){
+        if (movie == null){
+            return null;
+        }
+        List movieDTOS = new ArrayList<>();
+        for (Movie m : movie){
+            movieDTOS.add(toMovieDTO(m));
+        }
+        return movieDTOS;
+    }
+
+    /**
+     *
+     * @param movieDTO
+     * @return
+     */
+    public Movie toMovie(MovieDTO movieDTO){
+        if(movieDTO == null){
+            return null;
+        }
+
+        Movie movie = new Movie();
+        movie.setTitle(movieDTO.getTitle());
+        movie.setDescription(movieDTO.getDescription());
+        Users user = new Users();
+        user.setFirstname(movieDTO.getFirstName());
+        user.setLastname(movieDTO.getLastName());
+        user.setUsername(movieDTO.getUsername());
+        movie.setUser(user);
+        movie.setLikes(movieDTO.getLikes());
+        movie.setHates(movieDTO.getHates());
+        movie.setPublicationDate(movieDTO.getPublicationDate());
+        return movie;
+    }
 }

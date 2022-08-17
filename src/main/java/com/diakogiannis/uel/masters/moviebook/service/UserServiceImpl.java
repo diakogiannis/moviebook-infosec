@@ -2,11 +2,11 @@ package com.diakogiannis.uel.masters.moviebook.service;
 
 import com.diakogiannis.uel.masters.moviebook.enums.RolesEnum;
 import com.diakogiannis.uel.masters.moviebook.exceptions.UserExistsException;
-import com.diakogiannis.uel.masters.moviebook.repository.AuthoritiesRepository;
-import com.diakogiannis.uel.masters.moviebook.repository.UserRepository;
 import com.diakogiannis.uel.masters.moviebook.model.dto.UserDetailsDTO;
 import com.diakogiannis.uel.masters.moviebook.model.entity.users.Authorities;
 import com.diakogiannis.uel.masters.moviebook.model.entity.users.Users;
+import com.diakogiannis.uel.masters.moviebook.repository.AuthoritiesRepository;
+import com.diakogiannis.uel.masters.moviebook.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
