@@ -4,7 +4,7 @@
     <persistence-units>
       <persistence-unit name="Default">
         <packages>
-          <package value="com.diakogiannis.uel.masters.moviebook" />
+          <package value="com.diakogiannis.psarros.propertyregistry" />
         </packages>
       </persistence-unit>
     </persistence-units>

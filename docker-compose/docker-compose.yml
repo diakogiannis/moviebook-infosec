@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  
+  db:
+    image: postgres:14
+    expose:
+      - 5432
+    ports:
+      - "5454:5432"
+    networks:
+      - internalnet
+    environment:
+      - POSTGRES_USER=ravendbuser978453
+      - POSTGRES_PASSWORD=P62jl64k53lQCe!Q!qL$L35
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql-data:/var/lib/postgresql/data
+
+networks:
+  internalnet:
+
+volumes:
+  postgresql:
+  postgresql-data:

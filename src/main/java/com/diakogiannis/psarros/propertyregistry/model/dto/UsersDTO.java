@@ -1,0 +1,24 @@
+package com.diakogiannis.psarros.propertyregistry.model.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
+@AllArgsConstructor
+@ToString
+public class UsersDTO {
+    private @NonNull @NotBlank(message = "Username is mandatory") @Size(max = 255, message = "Maximum size is 255") String username;
+    private @NotBlank(message = "Password is mandatory") @Size(max = 255, message = "Maximum size is 255") String password;
+    private @NonNull @NotBlank(message = "Firstname is mandatory") @Size(max = 255, message = "Maximum size is 255") String firstname;
+    private @NonNull @NotBlank(message = "Lastname is mandatory") @Size(max = 255, message = "Maximum size is 255") String lastname;
+
+}

@@ -1,0 +1,18 @@
+check status 
+ufw status verbose
+
+Step 2 — Setting Up Default Policies
+
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+allow ssh
+sudo ufw allow 2234/tcp
+
+allow postgresql
+sudo ufw allow  5454/tcp
+
+allow java
+sudo ufw allow  8890/tcp
+
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-20-04

@@ -1,0 +1,4 @@
+mvn sonar:sonar \
+  -Dsonar.projectKey=property-management \
+  -Dsonar.host.url=https://iris.jee.gr:9900 \
+  -Dsonar.login=d9b6b87dab2a0d9b84cd886e4da304bad824dcc0
